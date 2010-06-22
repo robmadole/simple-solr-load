@@ -52,6 +52,10 @@ def run(query='insurance', query_template_file='query.txt', host='localhost',
             sys.stdout.write('.')
             sys.stdout.flush()
             response = con.getresponse()
+
+            content = response.read()
+            assert 'HTTP ERROR: 500' not in content, 'Server error %s' % content
+
             time.sleep(float(interval))
         except KeyboardInterrupt:
             break
